@@ -10,5 +10,10 @@ export const MainActionTypes = {
     ClearDonation: "ClearDonation"
 }
 
-
+//function addStudentToStudentListUI(){
+//    return {
+//        type: AddStudentToStudentListUI,
+//        result: ?
+//    }
+//}
 

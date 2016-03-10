@@ -1,9 +1,19 @@
 import React from 'react';
+import StudentListContainer from './studentListContainer';
 
 class UserDashboard extends React.Component {
-    render() {
-        return <h1>Hey, I'm a Dashboard!</h1>
+    fetchStudentList() {
+        console.log("fetchStudentListCalled")
+        return [{}];
     }
-}
+
+    render() {
+        return (
+            <div>
+                <StudentListContainer fetchStudentList={this.fetchStudentList}/>
+            </div>
+        );
+    }
+};
 
 export default UserDashboard;
