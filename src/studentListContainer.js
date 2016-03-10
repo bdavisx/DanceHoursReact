@@ -5,27 +5,24 @@ import {Grid, Row, Col} from 'react-bootstrap';
 class StudentListContainer extends Component {
     constructor(props) {
         super(props);
-
-        this.update = this.update.bind(this);
-    }
-
-    update(e){
-        //this.setState({
-        //    red: ReactDOM.findDOMNode(this.refs.red.refs.inp).value
-        //})
+        console.log("Constructor")
+        this.studentList = this.props.fetchStudentList();
     }
 
     componentDidMount() {
         console.log("componentDidMount")
-        this.props.fetchStudentList();
+        console.log("Component Did Mount " + this.studentList);
     }
 
     render() {
+        console.log("Render " + this.studentList);
         return (
             <Grid>
                 <Row>
-                    <Col xs={4}><h1>Your Studens</h1></Col>
-                    <Col xs={3}>Test</Col>
+                    <Col xs={4}><h1>Your Students</h1></Col>
+                    { this.studentList.map( (student) => {
+                        return <div key={student.id}>{student.name}</div>;
+                    })}
                 </Row>
             </Grid>
         );
