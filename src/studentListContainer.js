@@ -9,26 +9,29 @@ class StudentListContainer extends Component {
         this.studentList = this.props.fetchStudentList();
     }
 
-    componentDidMount() {
-        console.log("componentDidMount")
-        console.log("Component Did Mount " + this.studentList);
-    }
-
     render() {
         console.log("Render " + this.studentList);
         return (
             <Grid>
                 <Row>
                     <Col xs={4}><h1>Your Students</h1></Col>
-                    { this.studentList.map( (student) => {
-                        return <div key={student.id}>{student.name}</div>;
-                    })}
+                </Row>
+                <Row>
+                    <Col xs={8}> { this.studentList.map( function(student) {
+                        return <StudentListDetail key={student.id} student={student}/> } ) }
+                    </Col>
                 </Row>
             </Grid>
         );
     }
 }
 StudentListContainer.propTypes = { fetchStudentList: React.PropTypes.func };
+
+const StudentListDetail = (props) => {
+    console.log("Student List Detail " + props.student.name)
+    return <span>{props.student.name}</span>;
+}
+StudentListDetail.propTypes = { student: React.PropTypes.object };
 
 export default StudentListContainer;
 
