@@ -3,7 +3,7 @@ import StudentListContainer from './studentListContainer.jsx';
 
 class UserDashboard extends React.Component {
     fetchStudentList() {
-        console.log("fetchStudentListCalled")
+        console.log("fetchStudentList called.")
         return [
             {
                 id: "abc",
@@ -27,10 +27,15 @@ class UserDashboard extends React.Component {
         ];
     }
 
+    handleSessionClick() {
+        console.log("handleSessionClick called.")
+    }
+
     render() {
         return (
             <div>
-                <StudentListContainer fetchStudentList={this.fetchStudentList}/>
+                <StudentListContainer fetchStudentList={this.fetchStudentList}
+                    handleSessionClick={this.handleSessionClick}/>
             </div>
         );
     }

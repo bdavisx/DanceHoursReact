@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+    devtool: 'source-map',
     devServer: {
         inline: true,
         port: 3333

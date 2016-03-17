@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import {Button, Col, Grid, Label, Row, PageHeader } from 'react-bootstrap';
+import {StudioSession} from './studioSession.jsx';
+
 //import { connect } from 'react-redux';
-import StudentHoursDonatedDetail from './testDetail.jsx';
 
 class StudentListContainer extends Component {
     constructor(props) {
         super(props);
         console.log("Constructor")
         this.studentList = this.props.fetchStudentList();
+        this.handleSessionClick = this.props.handleSessionClick;
     }
 
     render() {
@@ -16,13 +18,14 @@ class StudentListContainer extends Component {
             <Grid>
                 <Row className="vertical-align">
                     <Col xs={8}>
-                        <PageHeader>Your Students <small>
-                            <Button bsStyle="link">I want to add a student to my list</Button>
-                        </small></PageHeader>
+                        <PageHeader>Your Students
+                            <small>
+                                <Button bsStyle="link">I want to add a student to my list</Button>
+                            </small>
+                        </PageHeader>
                     </Col>
                     <Col xs={4}>
-                        <Label bsStyle="success">Session:</Label>
-                        <Button bsStyle="link">mm/dd/yyyy to mm/dd/yyyy</Button>
+                        <StudioSession handleClick={this.handleSessionClick} />
                     </Col>
                 </Row>
                 <Row>
@@ -46,11 +49,14 @@ class StudentListContainer extends Component {
         );
     }
 }
-StudentListContainer.propTypes = { fetchStudentList: React.PropTypes.func };
+StudentListContainer.propTypes = {
+    handleSessionClick: React.PropTypes.func,
+    fetchStudentList: React.PropTypes.func
+};
 
 const StudentListDetail = ({student}) => {
     console.log("Student List Detail " + student.name)
-    return <tr>
+    return <tr key={student.name}>
         <td>{student.name}</td>
         <td><StudentHoursDonatedDetail hoursDonated={student.hoursDonated}/></td>
         <td>{student.totalHoursNeeded}</td>
@@ -58,23 +64,11 @@ const StudentListDetail = ({student}) => {
 }
 StudentListDetail.propTypes = { student: React.PropTypes.object };
 
+const StudentHoursDonatedDetail = ({hoursDonated}) => {
+    return <span>{ hoursDonated.map(function (hours) {
+        return <span key={hours.name}><span>{hours.name}</span><span>{hours.howManyHours}</span></span>;
+    })}</span>;
+}
+StudentHoursDonatedDetail.propTypes = { hoursDonated: React.PropTypes.array };
 
 export default StudentListContainer;
-
-//render() {
-//    const { students } = this.props.studentList;
-//    const { currentSession } = this.props.currentSession;
-//
-//    if (!students) {
-//        return <div>Loading...</div>;
-//    }
-//
-//    return (
-//        <Grid>
-//            <Row>
-//                <Col xs={4}><h1>Your Studens</h1></Col>
-//                <Col xs={3}>Test</Col>
-//            </Row>
-//        </Grid>
-//    );
-//}
