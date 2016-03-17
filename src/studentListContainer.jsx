@@ -9,7 +9,6 @@ class StudentListContainer extends Component {
         super(props);
         console.log("Constructor")
         this.studentList = this.props.fetchStudentList();
-        this.handleSessionClick = this.props.handleSessionClick;
     }
 
     render() {
@@ -25,7 +24,7 @@ class StudentListContainer extends Component {
                         </PageHeader>
                     </Col>
                     <Col xs={4}>
-                        <StudioSession handleClick={this.handleSessionClick} />
+                        <StudioSession handleClick={this.props.handleSessionClick} />
                     </Col>
                 </Row>
                 <Row>

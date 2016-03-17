@@ -5,7 +5,6 @@ export class StudioSession extends Component {
     constructor(props) {
         super(props);
         console.log("Constructor")
-        this.handleClick = this.props.handleClick;
     }
 
     render() {

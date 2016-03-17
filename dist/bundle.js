@@ -19811,7 +19811,6 @@
 	
 	        console.log("Constructor");
 	        _this.studentList = _this.props.fetchStudentList();
-	        _this.handleSessionClick = _this.props.handleSessionClick;
 	        return _this;
 	    }
 	
@@ -19846,7 +19845,7 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { xs: 4 },
-	                        _react2.default.createElement(_studioSession.StudioSession, { handleClick: this.handleSessionClick })
+	                        _react2.default.createElement(_studioSession.StudioSession, { handleClick: this.props.handleSessionClick })
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -37066,7 +37065,6 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StudioSession).call(this, props));
 	
 	        console.log("Constructor");
-	        _this.handleClick = _this.props.handleClick;
 	        return _this;
 	    }
 	
