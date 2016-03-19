@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import {Button} from 'react-bootstrap';
 
-export class StudioSession extends Component {
-    constructor(props) {
-        super(props);
-        console.log("Constructor")
-    }
+/*
+    TODO: I'm thinking we should further encapsulate the Studio Session Selection. Here an outside
+    class is expected to pass in the click handler; but it seems that there should be a
+    StudioSessionSelection kind of component and probably then a parent to that one and this one
+    or this one handles the selection component - but that seems to not be SRP.
+ */
 
-    render() {
-        return <span>
-            <Button onClick={this.props.handleClick} bsStyle="success" bsSize="small">Session:</Button>
-            <Button onClick={this.props.handleClick} bsStyle="link">mm/dd/yyyy to mm/dd/yyyy</Button>
-        </span>;
-    }
+export const StudioSession = ({handleClick}) => {
+    return <span>
+        <Button onClick={handleClick} bsStyle="success" bsSize="small">Session:</Button>
+        <Button onClick={handleClick} bsStyle="link">mm/dd/yyyy to mm/dd/yyyy</Button>
+    </span>;
 }
-StudioSession.propTypes = { handleSessionClick: React.PropTypes.func };
+StudioSession.propTypes = { handleClick: React.PropTypes.func };
 

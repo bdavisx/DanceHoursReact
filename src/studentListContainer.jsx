@@ -8,6 +8,7 @@ class StudentListContainer extends Component {
     constructor(props) {
         super(props);
         console.log("Constructor")
+        // TODO: needs to be incorporated into state, fetchStudentList needs to be observable/RX
         this.studentList = this.props.fetchStudentList();
     }
 
@@ -29,19 +30,7 @@ class StudentListContainer extends Component {
                 </Row>
                 <Row>
                     <Col xs={12}>
-                        <table width="100%">
-                            <thead>
-                            <tr>
-                                <th>Student</th>
-                                <th>Hours Donated</th>
-                                <th>Total Hours Needed</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                { this.studentList.map( function(student) {
-                                    return <StudentListDetail key={student.id} student={student}/> } ) }
-                            </tbody>
-                        </table>
+                        <StudentListTable studentList={this.studentList}/>
                     </Col>
                 </Row>
             </Grid>
@@ -52,6 +41,25 @@ StudentListContainer.propTypes = {
     handleSessionClick: React.PropTypes.func,
     fetchStudentList: React.PropTypes.func
 };
+
+const StudentListTable = ({studentList}) => {
+    return <table width="100%">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Hours Donated</th>
+            <th>Total Hours Needed</th>
+        </tr>
+        </thead>
+        <tbody>
+        { studentList.map( function(student) {
+            return <StudentListDetail key={student.id} student={student}/> } ) }
+        </tbody>
+    </table>
+}
+StudentListTable.propTypes = {
+    studentList: React.PropTypes.array.required
+}
 
 const StudentListDetail = ({student}) => {
     console.log("Student List Detail " + student.name)
