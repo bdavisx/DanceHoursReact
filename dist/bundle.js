@@ -19810,6 +19810,7 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StudentListContainer).call(this, props));
 	
 	        console.log("Constructor");
+	        // TODO: needs to be incorporated into state, fetchStudentList needs to be observable/RX
 	        _this.studentList = _this.props.fetchStudentList();
 	        return _this;
 	    }
@@ -19854,40 +19855,7 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { xs: 12 },
-	                        _react2.default.createElement(
-	                            'table',
-	                            { width: '100%' },
-	                            _react2.default.createElement(
-	                                'thead',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'tr',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        null,
-	                                        'Student'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        null,
-	                                        'Hours Donated'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        null,
-	                                        'Total Hours Needed'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tbody',
-	                                null,
-	                                this.studentList.map(function (student) {
-	                                    return _react2.default.createElement(StudentListDetail, { key: student.id, student: student });
-	                                })
-	                            )
-	                        )
+	                        _react2.default.createElement(StudentListTable, { studentList: this.studentList })
 	                    )
 	                )
 	            );
@@ -19902,10 +19870,51 @@
 	    fetchStudentList: _react2.default.PropTypes.func
 	};
 	
-	var StudentListDetail = function StudentListDetail(_ref) {
-	    var student = _ref.student;
+	var StudentListTable = function StudentListTable(_ref) {
+	    var studentList = _ref.studentList;
 	
-	    console.log("Student List Detail " + student.name);
+	    return _react2.default.createElement(
+	        'table',
+	        { width: '100%' },
+	        _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Student'
+	                ),
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Hours Donated'
+	                ),
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Total Hours Needed'
+	                )
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'tbody',
+	            null,
+	            studentList.map(function (student) {
+	                return _react2.default.createElement(StudentListDetail, { key: student.id, student: student });
+	            })
+	        )
+	    );
+	};
+	StudentListTable.propTypes = {
+	    studentList: _react2.default.PropTypes.array
+	};
+	
+	var StudentListDetail = function StudentListDetail(_ref2) {
+	    var student = _ref2.student;
+	
 	    return _react2.default.createElement(
 	        'tr',
 	        { key: student.name },
@@ -19917,7 +19926,8 @@
 	        _react2.default.createElement(
 	            'td',
 	            null,
-	            _react2.default.createElement(StudentHoursDonatedDetail, { hoursDonated: student.hoursDonated })
+	            _react2.default.createElement(StudentHoursDonatedDetail, { hoursDonated: student.hoursDonated,
+	                totalHoursNeeded: student.totalHoursNeeded })
 	        ),
 	        _react2.default.createElement(
 	            'td',
@@ -19928,31 +19938,57 @@
 	};
 	StudentListDetail.propTypes = { student: _react2.default.PropTypes.object };
 	
-	var StudentHoursDonatedDetail = function StudentHoursDonatedDetail(_ref2) {
-	    var hoursDonated = _ref2.hoursDonated;
+	var StudentHoursDonatedDetail = function StudentHoursDonatedDetail(_ref3) {
+	    var hoursDonated = _ref3.hoursDonated;
+	    var totalHoursNeeded = _ref3.totalHoursNeeded;
 	
 	    return _react2.default.createElement(
-	        'span',
-	        null,
-	        hoursDonated.map(function (hours) {
-	            return _react2.default.createElement(
-	                'span',
-	                { key: hours.name },
-	                _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    hours.name
-	                ),
-	                _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    hours.howManyHours
-	                )
-	            );
-	        })
+	        'table',
+	        { width: '100%' },
+	        _react2.default.createElement(
+	            'tbody',
+	            null,
+	            _react2.default.createElement(
+	                'tr',
+	                null,
+	                hoursDonated.map(function (hours) {
+	                    var theWidth = hours.howManyHours / totalHoursNeeded * 100;
+	                    var widthPercentage = theWidth + '%';
+	
+	                    var styleColor = '';
+	                    switch (hours.name) {
+	                        case 'Your Hours':
+	                            styleColor = 'lightgreen';
+	                            break;
+	                        case 'Others':
+	                            styleColor = '#bdb76b';
+	                            break;
+	                        case 'Remaining':
+	                            styleColor = '#d3d3d3';
+	                            break;
+	                    }
+	                    var fullStyle = {
+	                        width: widthPercentage,
+	                        background: styleColor,
+	                        padding: '1px'
+	                    };
+	                    return _react2.default.createElement(
+	                        'td',
+	                        { style: fullStyle },
+	                        hours.name,
+	                        ' (',
+	                        hours.howManyHours,
+	                        ')'
+	                    );
+	                })
+	            )
+	        )
 	    );
 	};
-	StudentHoursDonatedDetail.propTypes = { hoursDonated: _react2.default.PropTypes.array };
+	StudentHoursDonatedDetail.propTypes = {
+	    hoursDonated: _react2.default.PropTypes.array,
+	    totalHoursNeeded: _react2.default.PropTypes.number
+	};
 	
 	exports.default = StudentListContainer;
 

@@ -19,8 +19,8 @@ class UserDashboard extends React.Component {
                 id: "def",
                 name: "Student 2",
                 hoursDonated: [
-                    {name: "Your Hours", howManyHours: 5},
-                    {name: "Remaining", howManyHours: 5, remaining: true}
+                    {name: "Your Hours", howManyHours: 4},
+                    {name: "Remaining", howManyHours: 6, remaining: true}
                 ],
                 totalHoursNeeded: 15
             }

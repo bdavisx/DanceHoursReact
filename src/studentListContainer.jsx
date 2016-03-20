@@ -43,7 +43,7 @@ StudentListContainer.propTypes = {
 };
 
 const StudentListTable = ({studentList}) => {
-    return <table width="100%">
+    return <table width="100%" style={{borderCollapse: 'separate', borderSpacing: '10px'}}>
         <thead>
         <tr>
             <th>Student</th>
@@ -58,24 +58,72 @@ const StudentListTable = ({studentList}) => {
     </table>
 }
 StudentListTable.propTypes = {
-    studentList: React.PropTypes.array.required
+    studentList: React.PropTypes.array
 }
 
 const StudentListDetail = ({student}) => {
-    console.log("Student List Detail " + student.name)
-    return <tr key={student.name}>
+    var rowStyle = {
+        padding: 0.5
+    };
+    return <tr key={student.id}>
         <td>{student.name}</td>
-        <td><StudentHoursDonatedDetail hoursDonated={student.hoursDonated}/></td>
+        <td>
+            <StudentHoursDonatedDetail key={student.id} hoursDonated={student.hoursDonated}
+                totalHoursNeeded={student.totalHoursNeeded}/>
+        </td>
         <td>{student.totalHoursNeeded}</td>
     </tr>
 }
 StudentListDetail.propTypes = { student: React.PropTypes.object };
 
-const StudentHoursDonatedDetail = ({hoursDonated}) => {
-    return <span>{ hoursDonated.map(function (hours) {
-        return <span key={hours.name}><span>{hours.name}</span><span>{hours.howManyHours}</span></span>;
-    })}</span>;
+const StudentHoursDonatedDetail = ({hoursDonated, totalHoursNeeded}) => {
+    return (<table width="100%"><tbody><tr>{ hoursDonated.map(function (hours) {
+        var fullStyle = buildBarStyle(hours, totalHoursNeeded);
+        return <td key={hours.name} style={fullStyle}>
+            {hours.name} ({hours.howManyHours})
+        </td>;
+    })}</tr></tbody></table>);
+
+    function buildBarStyle(hours, totalHoursNeeded) {
+        var widthPercentage = determineHoursWidthPercentage(hours, totalHoursNeeded);
+        var styleColor = determineStyleColor(hours.name);
+
+        var fullStyle = {
+            width: widthPercentage,
+            background: styleColor,
+            border: '1px solid #999',
+            borderSpacing: '5px',
+            padding: '0.5rem'
+        }
+        return fullStyle;
+    }
+
+    function determineHoursWidthPercentage(hours, totalHoursNeeded) {
+        var theWidth = hours.howManyHours / totalHoursNeeded * 100;
+        var widthPercentage = theWidth + '%';
+        return widthPercentage;
+    }
+
+    function determineStyleColor(name) {
+        var styleColor = '';
+        switch (name) {
+            case 'Your Hours':
+                styleColor = 'lightgreen';
+                break;
+            case 'Others':
+                styleColor = '#bdb76b';
+                break;
+            case 'Remaining':
+                styleColor = '#d3d3d3';
+                break;
+        }
+        return styleColor;
+    }
+
 }
-StudentHoursDonatedDetail.propTypes = { hoursDonated: React.PropTypes.array };
+StudentHoursDonatedDetail.propTypes = {
+    hoursDonated: React.PropTypes.array,
+    totalHoursNeeded: React.PropTypes.number,
+};
 
 export default StudentListContainer;
