@@ -62,9 +62,6 @@ StudentListTable.propTypes = {
 }
 
 const StudentListDetail = ({student}) => {
-    var rowStyle = {
-        padding: 0.5
-    };
     return <tr key={student.id}>
         <td>{student.name}</td>
         <td>
@@ -92,8 +89,7 @@ const StudentHoursDonatedDetail = ({hoursDonated, totalHoursNeeded}) => {
             width: widthPercentage,
             background: styleColor,
             border: '1px solid #999',
-            borderSpacing: '5px',
-            padding: '0.5rem'
+            padding: '0.25rem'
         }
         return fullStyle;
     }
