@@ -19743,7 +19743,7 @@
 	            }, {
 	                id: "def",
 	                name: "Student 2",
-	                hoursDonated: [{ name: "Your Hours", howManyHours: 5 }, { name: "Remaining", howManyHours: 5, remaining: true }],
+	                hoursDonated: [{ name: "Your Hours", howManyHours: 4 }, { name: "Remaining", howManyHours: 6, remaining: true }],
 	                totalHoursNeeded: 15
 	            }];
 	        }
@@ -19791,6 +19791,8 @@
 	
 	var _studioSession = __webpack_require__(405);
 	
+	var _studentListTable = __webpack_require__(406);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19798,8 +19800,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//import { connect } from 'react-redux';
 	
 	var StudentListContainer = function (_Component) {
 	    _inherits(StudentListContainer, _Component);
@@ -19855,7 +19855,7 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { xs: 12 },
-	                        _react2.default.createElement(StudentListTable, { studentList: this.studentList })
+	                        _react2.default.createElement(_studentListTable.StudentListTable, { studentList: this.studentList })
 	                    )
 	                )
 	            );
@@ -19868,126 +19868,6 @@
 	StudentListContainer.propTypes = {
 	    handleSessionClick: _react2.default.PropTypes.func,
 	    fetchStudentList: _react2.default.PropTypes.func
-	};
-	
-	var StudentListTable = function StudentListTable(_ref) {
-	    var studentList = _ref.studentList;
-	
-	    return _react2.default.createElement(
-	        'table',
-	        { width: '100%' },
-	        _react2.default.createElement(
-	            'thead',
-	            null,
-	            _react2.default.createElement(
-	                'tr',
-	                null,
-	                _react2.default.createElement(
-	                    'th',
-	                    null,
-	                    'Student'
-	                ),
-	                _react2.default.createElement(
-	                    'th',
-	                    null,
-	                    'Hours Donated'
-	                ),
-	                _react2.default.createElement(
-	                    'th',
-	                    null,
-	                    'Total Hours Needed'
-	                )
-	            )
-	        ),
-	        _react2.default.createElement(
-	            'tbody',
-	            null,
-	            studentList.map(function (student) {
-	                return _react2.default.createElement(StudentListDetail, { key: student.id, student: student });
-	            })
-	        )
-	    );
-	};
-	StudentListTable.propTypes = {
-	    studentList: _react2.default.PropTypes.array
-	};
-	
-	var StudentListDetail = function StudentListDetail(_ref2) {
-	    var student = _ref2.student;
-	
-	    return _react2.default.createElement(
-	        'tr',
-	        { key: student.name },
-	        _react2.default.createElement(
-	            'td',
-	            null,
-	            student.name
-	        ),
-	        _react2.default.createElement(
-	            'td',
-	            null,
-	            _react2.default.createElement(StudentHoursDonatedDetail, { hoursDonated: student.hoursDonated,
-	                totalHoursNeeded: student.totalHoursNeeded })
-	        ),
-	        _react2.default.createElement(
-	            'td',
-	            null,
-	            student.totalHoursNeeded
-	        )
-	    );
-	};
-	StudentListDetail.propTypes = { student: _react2.default.PropTypes.object };
-	
-	var StudentHoursDonatedDetail = function StudentHoursDonatedDetail(_ref3) {
-	    var hoursDonated = _ref3.hoursDonated;
-	    var totalHoursNeeded = _ref3.totalHoursNeeded;
-	
-	    return _react2.default.createElement(
-	        'table',
-	        { width: '100%' },
-	        _react2.default.createElement(
-	            'tbody',
-	            null,
-	            _react2.default.createElement(
-	                'tr',
-	                null,
-	                hoursDonated.map(function (hours) {
-	                    var theWidth = hours.howManyHours / totalHoursNeeded * 100;
-	                    var widthPercentage = theWidth + '%';
-	
-	                    var styleColor = '';
-	                    switch (hours.name) {
-	                        case 'Your Hours':
-	                            styleColor = 'lightgreen';
-	                            break;
-	                        case 'Others':
-	                            styleColor = '#bdb76b';
-	                            break;
-	                        case 'Remaining':
-	                            styleColor = '#d3d3d3';
-	                            break;
-	                    }
-	                    var fullStyle = {
-	                        width: widthPercentage,
-	                        background: styleColor,
-	                        padding: '1px'
-	                    };
-	                    return _react2.default.createElement(
-	                        'td',
-	                        { style: fullStyle },
-	                        hours.name,
-	                        ' (',
-	                        hours.howManyHours,
-	                        ')'
-	                    );
-	                })
-	            )
-	        )
-	    );
-	};
-	StudentHoursDonatedDetail.propTypes = {
-	    hoursDonated: _react2.default.PropTypes.array,
-	    totalHoursNeeded: _react2.default.PropTypes.number
 	};
 	
 	exports.default = StudentListContainer;
@@ -37110,6 +36990,160 @@
 	    );
 	};
 	StudioSession.propTypes = { handleClick: _react2.default.PropTypes.func };
+
+/***/ },
+/* 406 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var StudentListTable = function StudentListTable(_ref) {
+	    var studentList = _ref.studentList;
+	
+	    return _react2.default.createElement(
+	        'table',
+	        { width: '100%', style: { borderCollapse: 'separate', borderSpacing: '10px' } },
+	        _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Student'
+	                ),
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Hours Donated'
+	                ),
+	                _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    'Total Hours Needed'
+	                )
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'tbody',
+	            null,
+	            studentList.map(function (student) {
+	                return _react2.default.createElement(StudentListDetail, { key: student.id, student: student });
+	            })
+	        )
+	    );
+	};
+	StudentListTable.propTypes = {
+	    studentList: _react2.default.PropTypes.array
+	};
+	
+	var StudentListDetail = function StudentListDetail(_ref2) {
+	    var student = _ref2.student;
+	
+	    return _react2.default.createElement(
+	        'tr',
+	        { key: student.id },
+	        _react2.default.createElement(
+	            'td',
+	            null,
+	            student.name
+	        ),
+	        _react2.default.createElement(
+	            'td',
+	            null,
+	            _react2.default.createElement(StudentHoursDonatedDetail, { key: student.id, hoursDonated: student.hoursDonated,
+	                totalHoursNeeded: student.totalHoursNeeded })
+	        ),
+	        _react2.default.createElement(
+	            'td',
+	            null,
+	            student.totalHoursNeeded
+	        )
+	    );
+	};
+	StudentListDetail.propTypes = { student: _react2.default.PropTypes.object };
+	
+	var StudentHoursDonatedDetail = function StudentHoursDonatedDetail(_ref3) {
+	    var hoursDonated = _ref3.hoursDonated;
+	    var totalHoursNeeded = _ref3.totalHoursNeeded;
+	
+	    return _react2.default.createElement(
+	        'table',
+	        { width: '100%' },
+	        _react2.default.createElement(
+	            'tbody',
+	            null,
+	            _react2.default.createElement(
+	                'tr',
+	                null,
+	                hoursDonated.map(function (hours) {
+	                    var fullStyle = buildBarStyle(hours, totalHoursNeeded);
+	                    return _react2.default.createElement(
+	                        'td',
+	                        { key: hours.name, style: fullStyle },
+	                        hours.name,
+	                        ' (',
+	                        hours.howManyHours,
+	                        ')'
+	                    );
+	                })
+	            )
+	        )
+	    );
+	
+	    function buildBarStyle(hours, totalHoursNeeded) {
+	        var widthPercentage = determineHoursWidthPercentage(hours, totalHoursNeeded);
+	        var styleColor = determineStyleColor(hours.name);
+	
+	        var fullStyle = {
+	            width: widthPercentage,
+	            background: styleColor,
+	            border: '1px solid #999',
+	            padding: '0.25rem'
+	        };
+	        return fullStyle;
+	    }
+	
+	    function determineHoursWidthPercentage(hours, totalHoursNeeded) {
+	        var theWidth = hours.howManyHours / totalHoursNeeded * 100;
+	        var widthPercentage = theWidth + '%';
+	        return widthPercentage;
+	    }
+	
+	    function determineStyleColor(name) {
+	        var styleColor = '';
+	        switch (name) {
+	            case 'Your Hours':
+	                styleColor = 'lightgreen';
+	                break;
+	            case 'Others':
+	                styleColor = '#bdb76b';
+	                break;
+	            case 'Remaining':
+	                styleColor = '#d3d3d3';
+	                break;
+	        }
+	        return styleColor;
+	    }
+	};
+	StudentHoursDonatedDetail.propTypes = {
+	    hoursDonated: _react2.default.PropTypes.array,
+	    totalHoursNeeded: _react2.default.PropTypes.number
+	};
+	
+	exports.default = StudentListTable;
 
 /***/ }
 /******/ ]);

@@ -1,8 +1,6 @@
 
 export const MainActionTypes = {
-    AddStudentToStudentListUI: "AddStudentToStudentListUI",
     SelectSessionUI: "SelectSessionUI",
-    ShowStudentDonationDetailUI: "ShowStudentDonationDetailUI",
     AddStudentToDonation: "AddStudentToDonation",
     SelectHoursDonationType: "SelectHoursDonationType",
     SelectDollarsDonationType: "SelectDollarsDonationType",
@@ -10,10 +8,4 @@ export const MainActionTypes = {
     ClearDonation: "ClearDonation"
 }
 
-//function addStudentToStudentListUI(){
-//    return {
-//        type: AddStudentToStudentListUI,
-//        result: ?
-//    }
-//}
 

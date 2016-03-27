@@ -1,5 +1,5 @@
-import React from 'react';
-import StudentListContainer from './studentListContainer.jsx';
+import React from "react";
+import StudentListContainer from "./studentSummary/studentListContainer.jsx";
 
 class UserDashboard extends React.Component {
     fetchStudentList() {
