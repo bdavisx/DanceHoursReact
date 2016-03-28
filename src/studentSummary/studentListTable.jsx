@@ -26,7 +26,7 @@ const StudentListDetail = ({student}) => {
             <StudentHoursDonatedDetail key={student.id} hoursDonated={student.hoursDonated}
                 totalHoursNeeded={student.totalHoursNeeded}/>
         </td>
-        <td>{student.totalHoursNeeded}</td>
+        <td style={{align: 'center' }}>{student.totalHoursNeeded}</td>
     </tr>
 }
 StudentListDetail.propTypes = { student: React.PropTypes.object };
